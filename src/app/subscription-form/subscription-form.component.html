@@ -1,0 +1,56 @@
+<div class="card shadow-effect">
+  <div class="card-body">
+    <div class="text-center mt-3 mb-5 mt-5">
+      <h3>SUBSCRIPTION FORM</h3>
+      <p class="m-auto subs-text">Join the Techedify community and get the latest tech news, insights, and exclusive content delivered straight to your inbox. Subscribe now to stay up-to-date with the ever-evolving world of technology!</p>
+
+      <div class="alert alert-danger mt-3" *ngIf = 'isEmailError'>
+        Email is already in use
+      </div>
+      <div class="alert alert-info mt-3" *ngIf = 'isSubscribed'>
+        Thank you for joining Techedify's newsletter! We'll be sending you fresh, exciting content on a regular basis, so you can stay ahead in the world of technology. Get ready to take your tech knowledge to the next level!
+      </div>
+
+
+
+      <form class="form-inline mb-5" #subForm = ngForm (ngSubmit) = 'onSubmit(subForm.value)' *ngIf = '!isSubscribed'>
+        <div class="form-group col-md-5">
+          <input
+          type="text"
+          class="form-control"
+          placeholder="Your Name"
+          name="name"
+          #Name="ngModel"
+          ngModel
+          required
+          [ngClass]="{'is-invalid': Name.touched && Name.invalid}"
+          >
+          <div class="text-danger" *ngIf="Name.touched && Name.invalid">
+            <div *ngIf="Name && Name.errors && Name.errors['required']">Name is required</div>
+          </div>
+        </div>
+        <div class="form-group col-md-5">
+          <input
+          type="email"
+          class="form-control"
+          placeholder="Email Address"
+          name="email"
+          #Email="ngModel"
+          ngModel
+          required
+          email
+          [ngClass]="{'is-invalid': Email.touched && Email.invalid}"
+          >
+          <div class="alert alert-danger" *ngIf = "Email.touched && Email.invalid">
+            <div *ngIf="Email && Email.errors && Email.errors['required']">Email is required</div>
+            <div *ngIf="Email && Email.errors && Email.errors['email']">Please enter a valid email address</div>
+
+            </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary btn-block btn-theme" [disabled]="subForm.invalid">SUBSCRIBE</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
